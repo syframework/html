@@ -23,7 +23,7 @@ $page->setBody('Hello world!');
 echo $page;
 ```
 
-Outpu:
+Output:
 ```html
 <!DOCTYPE html>
 <html>
