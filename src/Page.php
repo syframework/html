@@ -312,7 +312,7 @@ class Page extends WebComponent {
 				$this->setVars(array(
 					'JS_LINK'     => $url['url'],
 					'INTEGRITY'   => isset($url['integrity']) ? $url['integrity'] : '',
-					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : '',
+					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : 'anonymous',
 					'TYPE' => $jsLink['type'],
 					'LOAD' => $jsLink['load'],
 				));
@@ -328,7 +328,7 @@ class Page extends WebComponent {
 				$this->setVars(array(
 					'JS_LINK'     => $url['url'],
 					'INTEGRITY'   => isset($url['integrity']) ? $url['integrity'] : '',
-					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : '',
+					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : 'anonymous',
 					'TYPE' => $jsLink['type'],
 					'LOAD' => $jsLink['load'],
 				));
