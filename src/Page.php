@@ -223,8 +223,7 @@ class Page extends WebComponent {
 		$this->renderCssLinks();
 		$this->renderJsLinks();
 		$this->setVar('CSS_CODE', $this->getCssCode());
-		$this->setVar('JS_CODE', $this->getJsCode(WebComponent::JS_TOP));
-		$this->setVar('JS_CODE_BOTTOM', $this->getJsCode(WebComponent::JS_BOTTOM));
+		$this->renderJsCode();
 		$this->timeStop('Web page');
 		if ($this->debug) {
 			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
@@ -278,31 +277,63 @@ class Page extends WebComponent {
 		}
 	}
 
+	private function renderJsCode() {
+		$js = $this->getJsCode(WebComponent::JS_TOP);
+		foreach ($js as $type => $js) {
+			$this->setVar('TYPE', $type);
+			foreach ($js as $load => $code) {
+				$this->setVars([
+					'LOAD' => $load,
+					'CODE' => $code
+				]);
+				$this->setBlock('JS_CODE');
+			}
+		}
+
+		$js = $this->getJsCode(WebComponent::JS_BOTTOM);
+		foreach ($js as $type => $js) {
+			$this->setVar('TYPE', $type);
+			foreach ($js as $load => $code) {
+				$this->setVars([
+					'LOAD' => $load,
+					'CODE' => $code
+				]);
+				$this->setBlock('JS_CODE_BOTTOM');
+			}
+		}
+	}
+
 	private function renderJsLinks() {
 		$jsLinks = $this->getJsLinks();
 		foreach ($jsLinks[WebComponent::JS_TOP] as $jsLink) {
-			if (is_array($jsLink)) {
-				if (!isset($jsLink['url'])) continue;
+			$url = $jsLink['url'];
+			if (is_array($url)) {
+				if (!isset($url['url'])) continue;
 				$this->setVars(array(
-					'JS_LINK'     => $jsLink['url'],
-					'INTEGRITY'   => isset($jsLink['integrity']) ? $jsLink['integrity'] : '',
-					'CROSSORIGIN' => isset($jsLink['crossorigin']) ? $jsLink['crossorigin'] : '',
+					'JS_LINK'     => $url['url'],
+					'INTEGRITY'   => isset($url['integrity']) ? $url['integrity'] : '',
+					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : 'anonymous',
+					'TYPE' => $jsLink['type'],
+					'LOAD' => $jsLink['load'],
 				));
 			} else {
-				$this->setVars(array('JS_LINK' => $jsLink, 'INTEGRITY' => '', 'CROSSORIGIN' => ''));
+				$this->setVars(array('JS_LINK' => $url, 'INTEGRITY' => '', 'CROSSORIGIN' => '', 'TYPE' => $jsLink['type'], 'LOAD' => $jsLink['load']));
 			}
 			$this->setBlock('JS_LINKS');
 		}
 		foreach ($jsLinks[WebComponent::JS_BOTTOM] as $jsLink) {
-			if (is_array($jsLink)) {
-				if (!isset($jsLink['url'])) continue;
+			$url = $jsLink['url'];
+			if (is_array($url)) {
+				if (!isset($url['url'])) continue;
 				$this->setVars(array(
-					'JS_LINK'     => $jsLink['url'],
-					'INTEGRITY'   => isset($jsLink['integrity']) ? $jsLink['integrity'] : '',
-					'CROSSORIGIN' => isset($jsLink['crossorigin']) ? $jsLink['crossorigin'] : '',
+					'JS_LINK'     => $url['url'],
+					'INTEGRITY'   => isset($url['integrity']) ? $url['integrity'] : '',
+					'CROSSORIGIN' => isset($url['crossorigin']) ? $url['crossorigin'] : 'anonymous',
+					'TYPE' => $jsLink['type'],
+					'LOAD' => $jsLink['load'],
 				));
 			} else {
-				$this->setVars(array('JS_LINK' => $jsLink, 'INTEGRITY' => '', 'CROSSORIGIN' => ''));
+				$this->setVars(array('JS_LINK' => $url, 'INTEGRITY' => '', 'CROSSORIGIN' => '', 'TYPE' => $jsLink['type'], 'LOAD' => $jsLink['load']));
 			}
 			$this->setBlock('JS_LINKS_BOTTOM');
 		}
