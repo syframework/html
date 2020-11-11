@@ -24,7 +24,7 @@
 <?php endif ?>
 <?php if (isset($JS_LINKS)): ?>
 <?php foreach ($JS_LINKS as $link): ?>
-<script type="<?php echo $link['TYPE'] ?>" src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])) : ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
+<script<?php if (!empty($link['TYPE'])): ?> type="<?php echo $link['TYPE'] ?>"<?php endif ?> src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])) : ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
 <?php endforeach ?>
 <?php endif ?>
 <?php if (!empty($CSS_CODE)): ?>
@@ -34,7 +34,7 @@
 <?php endif ?>
 <?php if (isset($JS_CODE)): ?>
 <?php foreach ($JS_CODE as $js): ?>
-<script type="<?php echo $js['TYPE'] ?>"<?php if (!empty($js['LOAD'])) : ?> <?php echo $js['LOAD'] ?><?php endif ?>>
+<script<?php if (!empty($js['TYPE'])): ?> type="<?php echo $js['TYPE'] ?>"<?php endif ?><?php if (!empty($js['LOAD'])) : ?> <?php echo $js['LOAD'] ?><?php endif ?>>
 <?php echo $js['CODE'] ?>
 </script>
 <?php endforeach ?>
@@ -45,12 +45,12 @@
 <?php if (isset($DEBUG_BAR)) echo $DEBUG_BAR ?>
 <?php if (isset($JS_LINKS_BOTTOM)): ?>
 <?php foreach ($JS_LINKS_BOTTOM as $link): ?>
-<script type="<?php echo $link['TYPE'] ?>" src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])) : ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
+<script<?php if (!empty($link['TYPE'])): ?> type="<?php echo $link['TYPE'] ?>"<?php endif ?> src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])) : ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
 <?php endforeach ?>
 <?php endif ?>
 <?php if (isset($JS_CODE_BOTTOM)): ?>
 <?php foreach ($JS_CODE_BOTTOM as $js): ?>
-<script type="<?php echo $js['TYPE'] ?>"<?php if (!empty($js['LOAD'])) : ?> <?php echo $js['LOAD'] ?><?php endif ?>>
+<script<?php if (!empty($js['TYPE'])): ?> type="<?php echo $js['TYPE'] ?>"<?php endif ?><?php if (!empty($js['LOAD'])) : ?> <?php echo $js['LOAD'] ?><?php endif ?>>
 <?php echo $js['CODE'] ?>
 </script>
 <?php endforeach ?>
