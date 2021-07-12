@@ -40,20 +40,21 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 * @return boolean
 	 */
 	public function isValid($values) {
+		$res = true;
 		foreach ($this->getElements() as $e) {
 			if (!$e instanceof ValidableElement) continue;
 			if ($e instanceof Container) {
-				if (!$e->isValid($values)) return false;
+				if (!$e->isValid($values)) $res = false;
 			} elseif ($e instanceof File) {
 				$name = $e->getAttribute('name');
-				if (!$e->isValid($name)) return false;
+				if (!$e->isValid($name)) $res = false;
 			} else {
 				$name = $e->getAttribute('name');
 				if (is_null($name)) continue;
-				if (!$e->isValid($this->dissolveArrayValue($values, $name))) return false;
+				if (!$e->isValid($this->dissolveArrayValue($values, $name))) $res = false;
 			}
 		}
-		return true;
+		return $res;
 	}
 
 	/**
