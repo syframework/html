@@ -80,21 +80,21 @@ class OptionContainer extends Container {
 	 * @return bool
 	 */
 	public function isValid($values) {
+		$name = $this->getAttribute('name');
+		if (is_null($name)) {
+			return false;
+		}
+		$value = $this->dissolveArrayValue($values, $name);
 		$validators = $this->getOption('validator');
 		if (!is_null($validators)) {
 			if (!is_array($validators)) $validators = array($validators);
 			if (is_callable($validators)) $validators = array($validators);
 			foreach ($validators as $v) {
 				if (!is_callable($v)) continue;
-				if (!call_user_func($v, $values, $this)) return false;
+				if (!call_user_func($v, $value, $this)) return false;
 			}
 		}
 		if (!$this->isRequired()) return true;
-		$name = $this->getAttribute('name');
-		if (is_null($name)) {
-			return false;
-		}
-		$value = $this->dissolveArrayValue($values, $name);
 		if (is_array($value) and empty($value)) {
 			return false;
 		}
