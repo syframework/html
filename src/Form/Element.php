@@ -116,6 +116,7 @@ class Element extends HtmlElement {
 
 	public function __toString() {
 		$this->setVar('ID', $this->getAttribute('id'));
+		unset($this->options['VALIDATOR']);
 		$this->setVars($this->options);
 		return parent::__toString();
 	}

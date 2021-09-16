@@ -73,40 +73,14 @@
 		<?php endif ?>
 
 		<div id="sy_debug_var_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
-			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
-				<?php if (!empty($vars)) : ?>
-					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; margin: 10px; line-height: 20px;"><?php echo $title ?></h2>
-					<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
-						<tr style="<?php echo $TR_HEAD_CSS ?>">
-							<th style="<?php echo $TH_CSS ?> width: 200px;">Name</th>
-							<th style="<?php echo $TH_CSS ?>">Value</th>
-						</tr>
-						<?php foreach ($vars as $k => $v) : ?>
-						<tr style="<?php echo $RESET_CSS ?>">
-							<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB; font-weight: bold;"><?php echo $k ?></td>
-							<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE">
-								<?php if (is_array($v) or is_object($v)) : ?>
-								<pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities(print_r($v, true), ENT_QUOTES, $CHARSET) ?></pre>
-								<?php else : ?>
-								<?php echo htmlentities($v, ENT_QUOTES, $CHARSET) ?>
-								<?php endif ?>
-							</td>
-						</tr>
-						<?php endforeach ?>
-					</table>
-				<?php endif ?>
-			<?php endforeach ?>
+			<?php echo $VARS_DIV ?>
 
 			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; margin: 10px; line-height: 20px;">Included Files</h2>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Filename</th>
 				</tr>
-				<?php foreach ($FILES as $file) : ?>
-				<tr style="<?php echo $RESET_CSS ?>">
-					<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE"><?php echo $file ?></td>
-				</tr>
-				<?php endforeach ?>
+				<?php echo $FILES ?>
 			</table>
 			<br />
 		</div>
@@ -132,20 +106,7 @@
 					<th style="<?php echo $TH_CSS ?>">Function</th>
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach ($LOGS as $log) : ?>
-				<tr class="sy_debug_log_row_<?php echo $COLOR_NAMES[$log->getLevel()] ?>" style="<?php echo $RESET_CSS ?>">
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>">
-						<div style="display: inline-block"><?php echo $FLAGS[$log->getLevel()] ?></div>
-						<?php echo $log->getLevelName() ?>
-					</td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getType() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span style="<?php echo $RESET_CSS ?>" title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
-				</tr>
-				<?php endforeach ?>
+				<?php echo $LOGS_DIV ?>
 			</table>
 		</div>
 		<?php endif ?>
@@ -177,16 +138,7 @@
 					<th style="<?php echo $TH_CSS ?>">Function</th>
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach ($QUERY_LOGS as $i => $log) : ?>
-				<tr style="<?php echo $RESET_CSS ?>">
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $i + 1 ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span style="<?php echo $RESET_CSS ?>" title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
-				</tr>
-				<?php endforeach ?>
+				<?php echo $QUERY_LOGS ?>
 			</table>
 		</div>
 		<?php endif ?>
@@ -198,12 +150,7 @@
 					<th style="<?php echo $TH_CSS ?>">Time id</th>
 					<th style="<?php echo $TH_CSS ?> width: 100px;">Time (ms)</th>
 				</tr>
-				<?php foreach ($TIMES as $title => $time) : ?>
-				<tr style="<?php echo $RESET_CSS ?>">
-					<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB"><?php echo $title ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE; text-align: right; padding-right: 10px;"><?php echo round($time * 1000, 2) ?></td>
-				</tr>
-				<?php endforeach ?>
+				<?php echo $TIMES ?>
 			</table>
 		</div>
 		<?php endif ?>
