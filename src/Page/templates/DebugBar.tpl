@@ -92,9 +92,9 @@
 			</div>
 			<div id="sy_debug_log_filter_div" style="<?php echo $RESET_CSS ?> display: none; position: absolute; padding: 3px; background-color: #CCC; border-bottom: 1px solid #AAA; border-right: 1px solid #AAA;">
 				<button onclick="sy_debug.get('log_filter_div').style.display = 'none';" title="Close" style="margin-left: 5px; float: right; font-size: 16px; font-weight: bold; color: #777; line-height: 16px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">&times;</button>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'green')" style="display: inline-block; cursor: pointer; float: none; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAGS[Sy\Debug\Log::NOTICE] ?></div>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'orange')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAGS[Sy\Debug\Log::WARN] ?></div>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'red')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAGS[Sy\Debug\Log::ERR] ?></div>
+				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'green')" style="display: inline-block; cursor: pointer; float: none; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_NOTICE ?></div>
+				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'orange')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_WARN ?></div>
+				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'red')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_ERR ?></div>
 			</div>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
