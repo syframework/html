@@ -137,11 +137,11 @@ class DebugBar extends WebComponent {
 TR;
 			}
 			$varsDiv .= <<<VARS_DIV
-				<h2 style="{$this->resetCss} font-size: 14px; margin: 10px; line-height: 20px;"><?php echo $title ?></h2>
+				<h2 style="{$this->resetCss} font-size: 14px; margin: 10px; line-height: 20px;">$title</h2>
 				<table style="{$this->tableResetCss} width: 100%;">
 					<tr style="{$this->trHeadCss}">
 						<th style="{$this->thCss} width: 200px;">Name</th>
-						<th style="{$this->thCss}>Value</th>
+						<th style="{$this->thCss}">Value</th>
 					</tr>
 					$rows
 				</table>
@@ -198,6 +198,11 @@ FILES;
 			Log::INFO   => $flag['green'],
 			Log::DEBUG  => $flag['green'],
 		);
+		$this->setVars([
+			'FLAG_NOTICE' => $flag['green'],
+			'FLAG_WARN'   => $flag['orange'],
+			'FLAG_ERR'    => $flag['red'],
+		]);
 
 		$logsDiv = '';
 		foreach ($loggers['web']->getLogs() as $log) {
@@ -206,15 +211,15 @@ FILES;
 			$logsDiv .= <<<LOGS_DIV
 				<tr class="sy_debug_log_row_{$this->colorNames[$log->getLevel()]}" style="{$this->resetCss}">
 					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">
-						<div style="display: inline-block"><?php echo {$flags[$log->getLevel()]} ?></div>
+						<div style="display: inline-block">{$flags[$log->getLevel()]}</div>
 						{$log->getLevelName()}
 					</td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->colors[$log->getLevel()]} ?>">{$log->getType()}</td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->colors[$log->getLevel()]} ?>"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->colors[$log->getLevel()]} ?>; text-align: right;">{$log->getLine()}</td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->colors[$log->getLevel()]} ?>">{$log->getClass()}</td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->colors[$log->getLevel()]} ?>">{$log->getFunction()}</td>
-					<td style="{$this->tdCss} background-color: <?php echo {$this->sColors[$log->getLevel()]} ?>"><pre style="{$this->resetCss}">$message</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getType()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}; text-align: right;">{$log->getLine()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getClass()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getFunction()}</td>
+					<td style="{$this->tdCss} background-color: {$this->sColors[$log->getLevel()]}"><pre style="{$this->resetCss}">$message</td>
 				</tr>
 LOGS_DIV;
 		}
