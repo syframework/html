@@ -103,21 +103,45 @@ class Page extends WebComponent {
 	}
 
 	/**
+	 * Add multiple meta tag with the same attribute name
+	 *
+	 * @param string $attribute
+	 * @param string $name
+	 * @param array $contents
+	 */
+	public function addMetas($attribute, $name, array $contents) {
+		foreach ($contents as $content) {
+			$element = new Element('meta');
+			$element->setAttributes(array($attribute => $name, 'content' => $content));
+			$key = $attribute . '-' . strtolower($name);
+			if (!is_array($this->meta[$key])) {
+				$this->meta[$key] = [];
+			}
+			$this->meta[$key][] = $element;
+		}
+	}
+
+	/**
 	 * Set a meta tag
 	 *
 	 * @param string $name
-	 * @param string $content
-	 * @param bool   $httpEquiv
+	 * @param mixed $content string or array
+	 * @param bool $httpEquiv
 	 */
 	public function setMeta($name, $content, $httpEquiv = false) {
 		if ($httpEquiv) {
-			$this->addMeta(array('http-equiv' => $name, 'content' => $content), 'http-equiv-' . strtolower($name));
+			$attr = 'http-equiv';
 		} else {
 			if (substr($name, 0, 3) === 'og:') {
-				$this->addMeta(array('property' => $name, 'content' => $content), strtolower($name));
+				$attr = 'property';
 			} else {
-				$this->addMeta(array('name' => $name, 'content' => $content), 'name-' . strtolower($name));
+				$attr = 'name';
 			}
+		}
+		if (is_array($content)) {
+			$this->addMetas($attr, $name, $content);
+		} else {
+			$this->addMeta(array($attr => $name, 'content' => $content), $attr . '-' . strtolower($name));
 		}
 	}
 
@@ -272,8 +296,15 @@ class Page extends WebComponent {
 		$this->setComponent('META_ELEMENT', $meta);
 		$this->setBlock('META');
 		foreach ($this->meta as $meta) {
-			$this->setComponent('META_ELEMENT', $meta);
-			$this->setBlock('META');
+			if (is_array($meta)) {
+				foreach ($meta as $m) {
+					$this->setComponent('META_ELEMENT', $m);
+					$this->setBlock('META');
+				}
+			} else {
+				$this->setComponent('META_ELEMENT', $meta);
+				$this->setBlock('META');
+			}
 		}
 	}
 
