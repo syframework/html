@@ -3,8 +3,8 @@
 <div id="sy_debug_console" style="<?php echo $RESET_CSS ?> height: 270px; display: none;"></div>
 
 <div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font-size: 11px; z-index: 10000;">
-	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #e8e8e8;"></div>
-	<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #e8e8e8; background-image: -moz-linear-gradient(-90deg, #e8e8e8, #cbcbcb);background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cbcbcb));">
+	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #ddd;"></div>
+	<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #ddd;">
 		<?php if ($PHP_INFO): ?>
 		<a id="sy_debug_php_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('php'); return false;">
 			<div style="display: inline-block; margin-left: 10px">
@@ -97,7 +97,7 @@
 				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'red')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_ERR ?></div>
 			</div>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
-				<tr style="<?php echo $TR_HEAD_CSS ?>">
+				<tr style="position: sticky; top: 0; <?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 90px;">Level</th>
 					<th style="<?php echo $TH_CSS ?>">Type</th>
 					<th style="<?php echo $TH_CSS ?>">File</th>
@@ -130,7 +130,7 @@
 		<?php if ($QUERY_LOGGER): ?>
 		<div id="sy_debug_query_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto; position: relative;">
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
-				<tr style="<?php echo $TR_HEAD_CSS ?>">
+				<tr style="position: sticky; top: 0; <?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?>">#</th>
 					<th style="<?php echo $TH_CSS ?>">File</th>
 					<th style="<?php echo $TH_CSS ?> width: 40px;">Line</th>
@@ -146,7 +146,7 @@
 		<?php if ($TIME_RECORD): ?>
 		<div id="sy_debug_time_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
-				<tr style="<?php echo $TR_HEAD_CSS ?>">
+				<tr style="position: sticky; top: 0; <?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?>">Time id</th>
 					<th style="<?php echo $TH_CSS ?> width: 100px;">Time (ms)</th>
 				</tr>
