@@ -61,27 +61,27 @@ class DebugBar extends WebComponent {
 	 *
 	 * @var string
 	 */
-	private $trHeadCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: middle; background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));';
+	private $trHeadCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: middle; background-color: #0065BD; color: white;';
 
 	/**
 	 * Reset th css
 	 *
 	 * @var string
 	 */
-	private $thCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white; text-align: center;';
+	private $thCss = 'margin: 0; padding: 3px; border-bottom: 1px solid #004887; border-right: 1px solid #004887; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white; text-align: center;';
 
 	/**
 	 * Reset td css
 	 *
 	 * @var string
 	 */
-	private $tdCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; vertical-align: middle; color: black; background: transparent;';
+	private $tdCss = 'margin: 0; padding: 3px; border-bottom: 1px solid #B4B4B4; border-right: 1px solid #B4B4B4; outline: 0; font-size: 100%; vertical-align: middle; color: black; background: transparent;';
 
 	public function __construct($charset) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/DebugBar.tpl', 'php');
 		$this->charset = $charset;
-		$this->tableResetCss = $this->resetCss . ' border-collapse: collapse; border-spacing: 0;';
+		$this->tableResetCss = $this->resetCss . ' border-collapse: separate; border-spacing: 0;';
 		$this->init();
 	}
 
