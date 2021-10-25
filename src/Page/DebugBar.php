@@ -100,6 +100,7 @@ class DebugBar extends WebComponent {
 	 */
 	private function initPhpInfoDiv() {
 		$debugger = Debugger::getInstance();
+		$this->setVar('CHARSET', $this->charset);
 		$this->setVar('PHP_INFO', $debugger->phpInfoActive());
 	}
 
