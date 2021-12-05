@@ -1,7 +1,6 @@
 <?php
 namespace Sy\Component\Html;
 
-use Sy\Component;
 use Sy\Component\WebComponent;
 
 class Page extends WebComponent {
@@ -13,6 +12,7 @@ class Page extends WebComponent {
 	private $links;
 	private $htmlAttributes;
 	private $bodyAttributes;
+	private $jsonLd;
 
 	public function __construct() {
 		$this->phpInfo();
@@ -27,6 +27,7 @@ class Page extends WebComponent {
 		$this->links   = array();
 		$this->htmlAttributes = array();
 		$this->bodyAttributes = array();
+		$this->jsonLd = array();
 		$this->setBody('');
 	}
 
@@ -216,15 +217,21 @@ class Page extends WebComponent {
 	}
 
 	/**
+	 * Add JSON-LD
+	 *
+	 * @param array $jsonLd
+	 */
+	public function addJsonLd(array $jsonLd) {
+		$this->jsonLd[] = $jsonLd;
+	}
+
+	/**
 	 * Set the body content
 	 *
 	 * @param mixed $content
 	 */
 	public function setBody($content) {
-		if ($content instanceof Component)
-			$this->setComponent('BODY', $content);
-		else
-			$this->setVar('BODY', $content);
+		$this->setVar('BODY', $content);
 	}
 
 	/**
@@ -233,10 +240,7 @@ class Page extends WebComponent {
 	 * @param mixed $content
 	 */
 	public function addBody($content) {
-		if ($content instanceof Component)
-			$this->setComponent('BODY', $content, true);
-		else
-			$this->setVar('BODY', $content, true);
+		$this->setVar('BODY', $content, true);
 	}
 
 	public function __toString() {
@@ -248,6 +252,7 @@ class Page extends WebComponent {
 		$this->renderJsLinks();
 		$this->setVar('CSS_CODE', $this->getCssCode());
 		$this->renderJsCode();
+		$this->renderJsonLd();
 		$this->timeStop('Web page');
 		if ($this->debug) {
 			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
@@ -397,6 +402,13 @@ class Page extends WebComponent {
 			}
 			$this->setComponent('LINK', $l);
 			$this->setBlock('LINKS');
+		}
+	}
+
+	private function renderJsonLd() {
+		foreach ($this->jsonLd as $jsonLd) {
+			$this->setVar('JSONLD', json_encode($jsonLd, JSON_UNESCAPED_SLASHES));
+			$this->setBlock('JSONLD_BLOCK');
 		}
 	}
 
