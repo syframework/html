@@ -226,6 +226,15 @@ class Page extends WebComponent {
 	}
 
 	/**
+	 * Set JSON-LD
+	 *
+	 * @param array $jsonLd
+	 */
+	public function setJsonLd(array $jsonLd) {
+		$this->jsonLd = $jsonLd;
+	}
+
+	/**
 	 * Set the body content
 	 *
 	 * @param mixed $content
