@@ -39,6 +39,13 @@
 </script>
 <?php endforeach ?>
 <?php endif ?>
+<?php if (isset($JSONLD_BLOCK)): ?>
+<?php foreach ($JSONLD_BLOCK as $json): ?>
+<script type="application/ld+json">
+<?php echo $json['JSONLD'] ?>
+</script>
+<?php endforeach ?>
+<?php endif ?>
 </head>
 <body<?php if (isset($BODY_ATTR)): foreach ($BODY_ATTR as $body): ?> <?php echo $body['NAME'] ?>="<?php echo $body['VALUE'] ?>"<?php endforeach; endif ?>>
 <?php echo $BODY ?>
