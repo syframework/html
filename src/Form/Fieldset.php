@@ -12,7 +12,7 @@ class Fieldset extends FieldContainer {
 	 * @param string $label
 	 * @param array $attributes
 	 */
-	public function __construct($label = null, array $attributes = array()) {
+	public function __construct($label = '', array $attributes = array()) {
 		parent::__construct('fieldset');
 		$this->setAttributes($attributes);
 		$label = trim($label);

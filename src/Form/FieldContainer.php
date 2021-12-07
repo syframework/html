@@ -39,7 +39,7 @@ class FieldContainer extends Container {
 	 * @param array $attributes fieldset attributes
 	 * @return Fieldset
 	 */
-	public function addFieldset($label = null, array $attributes = array()) {
+	public function addFieldset($label = '', array $attributes = array()) {
 		$fieldset = new Fieldset($label, $attributes);
 		return $this->addElement($fieldset);
 	}
