@@ -4,7 +4,7 @@
 
 <div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font-size: 11px; z-index: 10000;">
 	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #ddd;"></div>
-	<div style="overflow-x:auto">
+	<div style="overflow-x:auto; overflow-y:hidden">
 		<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #ddd; min-width: 550px;">
 			<?php if ($PHP_INFO): ?>
 			<a id="sy_debug_php_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('php'); return false;">
