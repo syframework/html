@@ -123,6 +123,7 @@ class DebugBar extends WebComponent {
 			if (empty($vars)) continue;
 			$rows = '';
 			foreach ($vars as $k => $v) {
+				if (is_null($v)) continue;
 				if (is_array($v) or is_object($v)) {
 					$value = '<pre style="' . $this->resetCss . '">' . htmlentities(print_r($v, true), ENT_QUOTES, $this->charset) . '</pre>';
 				} else {
