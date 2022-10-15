@@ -12,7 +12,7 @@ class TextElement extends Element implements ValidableElement {
 	 * @param string $value attribute value
 	 */
 	public function setAttribute($name, $value) {
-		if (\strtolower($name) === 'value')
+		if (\strtolower($name) === 'value' and !is_null($value))
 			$value = str_replace ('"', '&quot;', $value);
 		parent::setAttribute($name, $value);
 	}
