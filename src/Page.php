@@ -5,13 +5,44 @@ use Sy\Component\WebComponent;
 
 class Page extends WebComponent {
 
+	/**
+	 * @var bool
+	 */
 	private $debug;
+
+	/**
+	 * @var string
+	 */
 	private $doctype;
+
+	/**
+	 * @var string
+	 */
 	private $charset;
+
+	/**
+	 * @var array
+	 */
 	private $meta;
+
+	/**
+	 * @var array
+	 */
 	private $links;
+
+	/**
+	 * @var array
+	 */
 	private $htmlAttributes;
+
+	/**
+	 * @var array
+	 */
 	private $bodyAttributes;
+
+	/**
+	 * @var array
+	 */
 	private $jsonLd;
 
 	public function __construct() {
@@ -29,6 +60,13 @@ class Page extends WebComponent {
 		$this->bodyAttributes = array();
 		$this->jsonLd = array();
 		$this->setBody('');
+		$this->mounted(function () {
+			$this->renderAll();
+			$this->timeStop('Web page');
+			if ($this->debug) {
+				$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
+			}
+		});
 	}
 
 	/**
@@ -237,7 +275,7 @@ class Page extends WebComponent {
 	/**
 	 * Set the body content
 	 *
-	 * @param mixed $content
+	 * @param string|\Sy\Component $content
 	 */
 	public function setBody($content) {
 		$this->setVar('BODY', $content);
@@ -246,27 +284,10 @@ class Page extends WebComponent {
 	/**
 	 * Add a body content
 	 *
-	 * @param mixed $content
+	 * @param string|\Sy\Component $content
 	 */
 	public function addBody($content) {
 		$this->setVar('BODY', $content, true);
-	}
-
-	public function __toString() {
-		$this->renderAttributes($this->htmlAttributes, 'HTML_ATTR');
-		$this->renderAttributes($this->bodyAttributes, 'BODY_ATTR');
-		$this->renderMetas();
-		$this->renderLinks();
-		$this->renderCssLinks();
-		$this->renderJsLinks();
-		$this->setVar('CSS_CODE', $this->getCssCode());
-		$this->renderJsCode();
-		$this->renderJsonLd();
-		$this->timeStop('Web page');
-		if ($this->debug) {
-			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
-		}
-		return parent::__toString();
 	}
 
 	private function phpInfo() {
@@ -288,6 +309,18 @@ class Page extends WebComponent {
 		}
 		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $this->charset) . '</pre>';
 		exit();
+	}
+
+	private function renderAll() {
+		$this->renderAttributes($this->htmlAttributes, 'HTML_ATTR');
+		$this->renderAttributes($this->bodyAttributes, 'BODY_ATTR');
+		$this->renderMetas();
+		$this->renderLinks();
+		$this->renderCssLinks();
+		$this->renderJsLinks();
+		$this->setVar('CSS_CODE', $this->getCssCode());
+		$this->renderJsCode();
+		$this->renderJsonLd();
 	}
 
 	private function renderAttributes(array $attributes, $block) {

@@ -21,11 +21,6 @@ class Element extends WebComponent {
 	private $content;
 
 	/**
-	 * @var Element
-	 */
-	private $parent;
-
-	/**
 	 * @var array Void element list
 	 */
 	private $voidElements = array('area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr');
@@ -65,15 +60,6 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Return the parent element
-	 *
-	 * @return Element
-	 */
-	public function getParent() {
-		return $this->parent;
-	}
-
-	/**
 	 * Set the element attribute
 	 *
 	 * @param string $name  Attribute name
@@ -93,15 +79,6 @@ class Element extends WebComponent {
 		foreach ($attributes as $name => $value) {
 			$this->setAttribute($name, $value);
 		}
-	}
-
-	/**
-	 * Set the element parent element
-	 *
-	 * @param \Sy\Component\Html\Element $element
-	 */
-	public function setParent(Element $element) {
-		$this->parent = $element;
 	}
 
 	/**
@@ -176,24 +153,23 @@ class Element extends WebComponent {
 		return empty($content);
 	}
 
-	public function __toString() {
-		$this->setVars(array(
-			'TAG_NAME' => $this->tagName,
-			'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '></' . $this->tagName
-		));
-		foreach ($this->attributes as $name => $value) {
-			$this->setVar('NAME', $name);
-			$this->setVar('VALUE', $value);
-			$this->setBlock('BLOCK_ATTRIBUTES');
-		}
-		foreach ($this->getFormattedContent() as $element) {
-			if ($element instanceof Element)
-				$this->setComponent('ELEMENT', $element);
-			else
-				$this->setVar('ELEMENT', $element);
-			$this->setBlock('BLOCK_CONTENT');
-		}
-		return parent::__toString();
+	public function render() {
+		$this->mount(function () {
+			$this->setVars(array(
+				'TAG_NAME' => $this->tagName,
+				'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '></' . $this->tagName
+			));
+			foreach ($this->attributes as $name => $value) {
+				$this->setBlock('BLOCK_ATTRIBUTES', array(
+					'NAME'  => $name,
+					'VALUE' => $value
+				));
+			}
+			foreach ($this->getFormattedContent() as $element) {
+				$this->setBlock('BLOCK_CONTENT', array('ELEMENT' => $element));
+			}
+		});
+		return parent::render();
 	}
 
 	private function getFormattedContent() {
