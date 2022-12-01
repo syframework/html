@@ -68,7 +68,7 @@
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<?php if ($PHP_INFO): ?>
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
-			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<iframe id="sy_debug_console_content_iframe" src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
@@ -175,8 +175,9 @@
 		},
 
 		start_resize: function(e) {
-			document.onmousemove = sy_debug.resize;
-			document.onmouseup   = sy_debug.end_resize;
+			document.addEventListener('mousemove', sy_debug.resize);
+			document.addEventListener('mouseup', sy_debug.end_resize);
+			document.getElementById('#sy_debug_console_content_iframe').style.pointerEvents = 'none';
 		},
 
 		resize: function(e) {
@@ -195,8 +196,9 @@
 		},
 
 		end_resize: function(e) {
-			document.onmousemove = null;
-			document.onmouseup   = null;
+			document.removeEventListener('mousemove', sy_debug.resize);
+			document.removeEventListener('mouseup', sy_debug.end_resize);
+			document.getElementById('#sy_debug_console_content_iframe').style.pointerEvents = 'auto';
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		},
 
