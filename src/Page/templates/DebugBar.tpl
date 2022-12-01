@@ -177,7 +177,7 @@
 		start_resize: function(e) {
 			document.addEventListener('mousemove', sy_debug.resize);
 			document.addEventListener('mouseup', sy_debug.end_resize);
-			document.getElementById('#sy_debug_console_content_iframe').style.pointerEvents = 'none';
+			document.getElementById('sy_debug_console_content_iframe').style.pointerEvents = 'none';
 		},
 
 		resize: function(e) {
@@ -198,7 +198,7 @@
 		end_resize: function(e) {
 			document.removeEventListener('mousemove', sy_debug.resize);
 			document.removeEventListener('mouseup', sy_debug.end_resize);
-			document.getElementById('#sy_debug_console_content_iframe').style.pointerEvents = 'auto';
+			document.getElementById('sy_debug_console_content_iframe').style.pointerEvents = 'auto';
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		},
 
