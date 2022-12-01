@@ -61,21 +61,21 @@ class DebugBar extends WebComponent {
 	 *
 	 * @var string
 	 */
-	private $trHeadCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: middle; background-color: #0065BD; color: white;';
+	private $trHeadCss = 'margin: 0 !important; padding: 0 !important; border: 0 !important; outline: 0 !important; font-size: 100% !important; vertical-align: middle !important; background-color: #0065BD !important; color: white !important;';
 
 	/**
 	 * Reset th css
 	 *
 	 * @var string
 	 */
-	private $thCss = 'margin: 0; padding: 3px; border-bottom: 1px solid #004887; border-right: 1px solid #004887; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white; text-align: center;';
+	private $thCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #004887 !important; border-right: 1px solid #004887 !important; outline: 0 !important; font-size: 100% !important; font-weight: bold !important; vertical-align: middle !important; color: white !important; text-align: center !important;';
 
 	/**
 	 * Reset td css
 	 *
 	 * @var string
 	 */
-	private $tdCss = 'margin: 0; padding: 3px; border-bottom: 1px solid #B4B4B4; border-right: 1px solid #B4B4B4; outline: 0; font-size: 100%; vertical-align: middle; color: black; background: transparent;';
+	private $tdCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #B4B4B4 !important; border-right: 1px solid #B4B4B4 !important; outline: 0; font-size: 100% !important; vertical-align: middle !important; color: black !important; background: transparent !important;';
 
 	public function __construct($charset) {
 		parent::__construct();
