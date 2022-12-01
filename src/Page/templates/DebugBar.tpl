@@ -68,7 +68,7 @@
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<?php if ($PHP_INFO): ?>
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
-			<iframe id="sy_debug_console_content_iframe" src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<iframe id="sy_debug_phpinfo_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
@@ -116,14 +116,14 @@
 		<?php if ($FILE_LOGGER): ?>
 		<div id="sy_debug_file_content" style="<?php echo $RESET_CSS ?> height: 100%; position: relative;">
 			<div style="<?php echo $RESET_CSS ?> position: absolute; top: 0; left: 0; background-color: #fff; padding-top: 2px; padding-left: 3px;">
-				<div onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off';" style="display: inline-block; cursor: pointer; color:green" title="Refresh">
+				<div onclick="document.getElementById('sy_debug_file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off';" style="display: inline-block; cursor: pointer; color:green" title="Refresh">
 					<svg style="height: 14px" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57zM255.83 432a175.61 175.61 0 0 1-146-77.8l101.8 4.87a12 12 0 0 0 12.57-12v-47.4a12 12 0 0 0-12-12H12a12 12 0 0 0-12 12V500a12 12 0 0 0 12 12h47.35a12 12 0 0 0 12-12.6l-4.15-82.57A247.17 247.17 0 0 0 255.83 504c121.11 0 221.93-86.92 243.55-201.82a12 12 0 0 0-11.8-14.18h-49.05a12 12 0 0 0-11.67 9.26A175.86 175.86 0 0 1 255.83 432z"></path></svg>
 				</div>
-				<div onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log_clear&amp;sy_debug_log=off';" style="display: inline-block; cursor: pointer; color:red" title="Clear">
+				<div onclick="document.getElementById('sy_debug_file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log_clear&amp;sy_debug_log=off';" style="display: inline-block; cursor: pointer; color:red" title="Clear">
 					<svg style="height: 16px" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
 				</div>
 			</div>
-			<iframe id="file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?sy_debug_log_file&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<iframe id="sy_debug_file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?sy_debug_log_file&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
@@ -177,7 +177,8 @@
 		start_resize: function(e) {
 			document.addEventListener('mousemove', sy_debug.resize);
 			document.addEventListener('mouseup', sy_debug.end_resize);
-			document.getElementById('sy_debug_console_content_iframe').style.pointerEvents = 'none';
+			document.getElementById('sy_debug_phpinfo_frame').style.pointerEvents = 'none';
+			document.getElementById('sy_debug_file_frame').style.pointerEvents = 'none';
 		},
 
 		resize: function(e) {
@@ -192,13 +193,14 @@
 			var  h = document.documentElement.clientHeight;
 			var new_height = h - posy - 34;
 			sy_debug.get('console_content').style.height = new_height + 'px';
-			sy_debug.get('console').style.height         = new_height + 'px';
 		},
 
 		end_resize: function(e) {
 			document.removeEventListener('mousemove', sy_debug.resize);
 			document.removeEventListener('mouseup', sy_debug.end_resize);
-			document.getElementById('sy_debug_console_content_iframe').style.pointerEvents = 'auto';
+			document.getElementById('sy_debug_phpinfo_frame').style.pointerEvents = 'auto';
+			document.getElementById('sy_debug_file_frame').style.pointerEvents = 'auto';
+			sy_debug.get('console').style.height = sy_debug.get('console_content').style.height;
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		},
 
