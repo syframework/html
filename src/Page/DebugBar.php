@@ -47,7 +47,7 @@ class DebugBar extends WebComponent {
 	 *
 	 * @var string
 	 */
-	private $resetCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-family: sans-serif; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent; float: none; color: #000; line-height: 15px;';
+	private $resetCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-family: sans-serif; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent; float: none; color: #000; line-height: 15px; text-transform: none;';
 
 	/**
 	 * Reset table css
@@ -61,21 +61,21 @@ class DebugBar extends WebComponent {
 	 *
 	 * @var string
 	 */
-	private $trHeadCss = 'margin: 0 !important; padding: 0 !important; border: 0 !important; outline: 0 !important; font-size: 100% !important; vertical-align: middle !important; background-color: #0065BD !important; color: white !important;';
+	private $trHeadCss = 'margin: 0 !important; padding: 0 !important; border: 0 !important; outline: 0 !important; font-size: 100% !important; vertical-align: middle !important; background-color: #0065BD !important; color: white !important; text-transform: none !important;';
 
 	/**
 	 * Reset th css
 	 *
 	 * @var string
 	 */
-	private $thCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #004887 !important; border-right: 1px solid #004887 !important; outline: 0 !important; font-size: 100% !important; font-weight: bold !important; vertical-align: middle !important; color: white !important; text-align: center !important;';
+	private $thCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #004887 !important; border-right: 1px solid #004887 !important; outline: 0 !important; font-size: 100% !important; font-weight: bold !important; vertical-align: middle !important; color: white !important; text-align: center !important; text-transform: none !important;';
 
 	/**
 	 * Reset td css
 	 *
 	 * @var string
 	 */
-	private $tdCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #B4B4B4 !important; border-right: 1px solid #B4B4B4 !important; outline: 0; font-size: 100% !important; vertical-align: middle !important; color: black !important; background: transparent !important;';
+	private $tdCss = 'margin: 0 !important; padding: 3px !important; border-bottom: 1px solid #B4B4B4 !important; border-right: 1px solid #B4B4B4 !important; outline: 0; font-size: 100% !important; vertical-align: middle !important; color: black !important; background: transparent !important; text-transform: none !important;';
 
 	public function __construct($charset) {
 		parent::__construct();
