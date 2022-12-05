@@ -1,6 +1,7 @@
 <?php
 namespace Sy\Component\Html;
 
+use Sy\Component;
 use Sy\Component\WebComponent;
 
 class Element extends WebComponent {
@@ -29,20 +30,26 @@ class Element extends WebComponent {
 	 * Element constructor
 	 *
 	 * @param string $tagName Element tag name
+	 * @param string|Component $content Element content
+	 * @param array $attributes Element attributes
 	 */
-	public function __construct($tagName) {
+	public function __construct($tagName, $content = null, array $attributes = array()) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->tagName = trim($tagName);
 		$this->attributes = array();
-		$this->content = array();
-		$this->parent = null;
+		$this->setAttributes($attributes);
+		if (is_null($content)) {
+			$this->content = array();
+		} else {
+			$this->setContent($content);
+		}
 	}
 
 	/**
 	 * Get the element attribute
 	 *
-	 * @param string $name Attribute name
+	 * @param  string $name Attribute name
 	 * @return string
 	 */
 	public function getAttribute($name) {
@@ -115,19 +122,35 @@ class Element extends WebComponent {
 	/**
 	 * Set the element content
 	 *
-	 * @param array $content Element content
+	 * @param string|Component ...$content Element content
 	 */
-	public function setContent(array $content) {
-		$this->content = $content;
+	public function setContent(...$content) {
+		$this->content = array();
+		foreach ($content as $c) {
+			$this->addContent($c);
+		}
+	}
+
+	/**
+	 * Add an element or text
+	 *
+	 * @param string|Component $content
+	 */
+	public function addContent($content) {
+		if ($content instanceof Component) {
+			$this->addElement($content);
+		} else {
+			$this->addText($content);
+		}
 	}
 
 	/**
 	 * Add an element
 	 *
-	 * @param Element $element
-	 * @return Element
+	 * @param  Component $element
+	 * @return Component
 	 */
-	public function addElement(Element $element) {
+	public function addElement(Component $element) {
 		$element->setParent($this);
 		$this->content[] = $element;
 		return $element;
@@ -157,7 +180,7 @@ class Element extends WebComponent {
 		$this->mount(function () {
 			$this->setVars(array(
 				'TAG_NAME' => $this->tagName,
-				'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '></' . $this->tagName
+				'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '</' . $this->tagName
 			));
 			foreach ($this->attributes as $name => $value) {
 				$this->setBlock('BLOCK_ATTRIBUTES', array(
@@ -165,25 +188,12 @@ class Element extends WebComponent {
 					'VALUE' => $value
 				));
 			}
-			foreach ($this->getFormattedContent() as $element) {
-				$this->setBlock('BLOCK_CONTENT', array('ELEMENT' => $element));
+			if (!in_array($this->tagName, $this->voidElements)) {
+				$content = $this->getContent();
+				$this->setVar('CONTENT', Component::concat('>', ...$content));
 			}
 		});
 		return parent::render();
-	}
-
-	private function getFormattedContent() {
-		$content = $this->getContent();
-		if (empty($content)) return $content;
-		if (count($content) > 1) {
-			$content = array_map(function($value) {
-				return is_string($value) ? $value . "\n" : $value;
-			}, $content);
-			array_unshift($content, "\n");
-		}
-		if (count($content) == 1 and current($content) instanceof Element)
-			array_unshift($content, "\n");
-		return $content;
 	}
 
 }

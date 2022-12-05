@@ -10,7 +10,7 @@ class Textarea extends TextElement implements FillableElement {
 
 	public function fill($value) {
 		if (is_array($value)) return;
-		$this->setContent(array($value));
+		$this->setContent($value);
 	}
 
 	public function __toString() {

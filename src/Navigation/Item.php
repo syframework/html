@@ -2,49 +2,23 @@
 namespace Sy\Component\Html\Navigation;
 
 use Sy\Component\Html\Element;
+use Sy\Component\Html\Link;
 
-class Item extends \Sy\Component\Html\Element {
+class Item extends Element {
 
 	/**
-	 * Item container
-	 *
-	 * @var Container
+	 * @param string|\Sy\Component $content
+	 * @param string|null $url
+	 * @param array $attributes
 	 */
-	private $list;
-
-	public function __construct($title, $link, array $attributes = array()) {
+	public function __construct($content, $url = null, array $attributes = array()) {
 		parent::__construct('li');
-		if (is_null($link)) {
-			$this->addText($title);
+		$this->setAttributes($attributes);
+		if (is_null($url)) {
+			$this->setContent($content);
 		} else {
-			$a = new Element('a');
-			$attributes['href'] = $link;
-			$a->setAttributes($attributes);
-			$a->addText($title);
-			$this->addElement($a);
+			$this->addElement(new Link($content, $url));
 		}
-		$this->list = new Element('ul');
-	}
-
-	/**
-	 * Add a sub item
-	 *
-	 * @param string $title Item title
-	 * @param string $link Item link
-	 * @return Item
-	 */
-	public function addItem($title, $link = null, array $attributes = array()) {
-		$item = new Item($title, $link, $attributes);
-		return $this->list->addElement($item);
-	}
-
-	public function getList() {
-		return $this->list;
-	}
-
-	public function __toString() {
-		if (!$this->list->isEmpty()) $this->addElement($this->list);
-		return parent::__toString();
 	}
 
 }

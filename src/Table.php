@@ -119,7 +119,7 @@ class Table extends TrContainer {
 		if (!$this->getTHead()->isEmpty()) $elements['head'] = $this->tHead;
 		if (!$this->getTFoot()->isEmpty()) $elements['foot'] = $this->tFoot;
 		if (!$this->getTBody()->isEmpty()) $elements['body'] = $this->tBody;
-		$this->setContent($elements);
+		$this->setContent(...$elements);
 		return parent::__toString();
 	}
 
