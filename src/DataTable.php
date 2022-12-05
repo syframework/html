@@ -164,7 +164,7 @@ class DataTable extends Table {
 	 * @param array $heads Array of head row
 	 */
 	public function setHeads(array $heads) {
-		$this->getTHead()->setContent(array());
+		$this->getTHead()->setContent();
 		$this->addHeads($heads);
 	}
 
@@ -197,7 +197,7 @@ class DataTable extends Table {
 	 * @param array $foots Array of foot data
 	 */
 	public function setFoots(array $foots) {
-		$this->getTFoot()->setContent(array());
+		$this->getTFoot()->setContent();
 		$this->addFoots($foots);
 	}
 
@@ -230,7 +230,7 @@ class DataTable extends Table {
 	 * @param array $rows
 	 */
 	public function setRows(array $rows) {
-		$this->getTBody()->setContent(array());
+		$this->getTBody()->setContent();
 		$this->addRows($rows);
 	}
 
@@ -301,12 +301,12 @@ class DataTable extends Table {
 			}
 			if ($isNumeric and $this->hasNumFormat()) {
 				$data = number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']);
-				$element->setContent(array($data));
+				$element->setContent($data);
 			}
 			if ($this->hasPregReplace()) {
 				foreach ($this->replaces as $replace) {
 					$data = preg_replace($replace['pattern'], $replace['replacement'], $data);
-					$element->setContent(array($data));
+					$element->setContent($data);
 				}
 			}
 		}
