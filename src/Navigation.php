@@ -57,7 +57,7 @@ class Navigation extends Element {
 		foreach ($items as $label => $item) {
 			if ($item instanceof Item) {
 				$this->addElement($item);
-			} elseif ($item instanceof Link) {
+			} elseif ($item instanceof \Sy\Component) {
 				$this->addItem($item);
 			} elseif (is_array($item)) {
 				$nav = new Navigation(

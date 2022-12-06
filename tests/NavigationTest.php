@@ -2,8 +2,9 @@
 namespace Sy\Test;
 
 use Sy\Component\Html\Navigation;
-use Sy\Component\Html\Link;
 use Sy\Component\Html\Navigation\Item;
+use Sy\Component\Html\Element;
+use Sy\Component\Html\Link;
 use Sy\Component;
 
 class NavigationTest extends TestCase {
@@ -17,6 +18,7 @@ class NavigationTest extends TestCase {
 			new Link('Menu5', 'url5', ['class' => 'foo']),
 			new Item('Menu6', 'url6', ['class' => 'foo']),
 			new Item(new Link('Menu7', 'url7', ['class' => 'bar']), attributes: ['class' => 'foo']),
+			new Element('hr', attributes: ['class' => 'hr']),
 		]);
 		$this->assertComponentRenderEqualsText($nav, '
 			<ul>
@@ -27,6 +29,7 @@ class NavigationTest extends TestCase {
 				<li><a class="foo" href="url5">Menu5</a></li>
 				<li class="foo"><a href="url6">Menu6</a></li>
 				<li class="foo"><a class="bar" href="url7">Menu7</a></li>
+				<li><hr class="hr" /></li>
 			</ul>
 		');
 	}
