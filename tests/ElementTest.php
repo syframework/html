@@ -1,20 +1,10 @@
 <?php
+namespace Sy\Test;
 
-use PHPUnit\Framework\TestCase;
 use Sy\Component\Html\Element;
 use Sy\Component;
 
 class ElementTest extends TestCase {
-
-	public function assertComponentRenderEqualsText(Component $component, string $text) {
-		$minify = function ($code) {
-			$code = str_replace(array("\t", "\r", "\n"), '', $code);
-			$code = preg_replace('/\s+/', ' ', $code);
-			$code = str_replace(array('> <'), '', $code);
-			return trim($code);
-		};
-		$this->assertEquals($minify($text), $minify($component->render()));
-	}
 
 	public function testConstructElement() {
 		$e = new Element('div');

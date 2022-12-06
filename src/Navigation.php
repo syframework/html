@@ -83,7 +83,7 @@ class Navigation extends Element {
 			} elseif (is_null($item)) {
 				$this->addItem($label, null, $itemAttributes);
 			} else {
-				$link = new Link($label, $item, $linkAttributes);
+				$link = new Link($this->_($label), $item, $linkAttributes);
 				if (!is_null($active) and $active === $item) {
 					$this->setActiveLink($link);
 				}

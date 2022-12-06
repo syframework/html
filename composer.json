@@ -21,6 +21,11 @@
 			"Sy\\Component\\Html\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Sy\\Test\\": "tests/"
+		}
+	},
 	"scripts": {
 		"test": "phpunit tests"
 	}

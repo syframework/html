@@ -1,6 +1,6 @@
 <?php
+namespace Sy\Test;
 
-use PHPUnit\Framework\TestCase;
 use Sy\Component\Html\Page;
 use Sy\Component\Html\Element;
 use Sy\Component\WebComponent;
@@ -180,16 +180,6 @@ class P1 extends Page {
 #endregion
 
 class PageTest extends TestCase {
-
-	public function assertFileContentEqualsComponentRender(string $filename, Component $component) {
-		$minify = function ($code) {
-			$code = str_replace(array("\t", "\r", "\n"), '', $code);
-			$code = preg_replace('/\s+/', ' ', $code);
-			$code = str_replace(array('> <'), '', $code);
-			return trim($code);
-		};
-		$this->assertEquals($minify(file_get_contents($filename)), $minify($component->render()));
-	}
 
 	public function testPage() {
 		$p = new P();
