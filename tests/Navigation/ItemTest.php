@@ -1,22 +1,13 @@
 <?php
+namespace Sy\Test\Navigation;
 
-use PHPUnit\Framework\TestCase;
+use Sy\Test\TestCase;
 use Sy\Component\Html\Navigation\Item;
 use Sy\Component\Html\Link;
 use Sy\Component\Html\Element;
 use Sy\Component;
 
 class ItemTest extends TestCase {
-
-	public function assertComponentRenderEqualsText(Component $component, string $text) {
-		$minify = function ($code) {
-			$code = str_replace(array("\t", "\r", "\n"), '', $code);
-			$code = preg_replace('/\s+/', ' ', $code);
-			$code = str_replace(array('> <'), '', $code);
-			return trim($code);
-		};
-		$this->assertEquals($minify($text), $minify($component->render()));
-	}
 
 	public function testConstructItem() {
 		$i = new Item('hello');

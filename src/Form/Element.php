@@ -20,10 +20,11 @@ class Element extends HtmlElement {
 	 * @param string $value attribute value
 	 */
 	public function setAttribute($name, $value) {
-		if ($name == 'name')
+		if ($name == 'name') {
 			$this->setName($value);
-		else
+		} else {
 			parent::setAttribute($name, $value);
+		}
 	}
 
 	/**
@@ -60,7 +61,7 @@ class Element extends HtmlElement {
 	/**
 	 * Get the element option
 	 *
-	 * @param string $name
+	 * @param  string $name
 	 * @return mixed
 	 */
 	public function getOption($name) {
@@ -85,7 +86,7 @@ class Element extends HtmlElement {
 		if ($end and substr_compare($end, '[]', -2) == 0) {
 			$new_end .= '[]';
 		}
-		parent::setAttribute('name', $new_begin.$new_end);
+		parent::setAttribute('name', $new_begin . $new_end);
 	}
 
 	/**
@@ -95,16 +96,17 @@ class Element extends HtmlElement {
 	 */
 	public function isRequired() {
 		if (!is_null($this->getAttribute('required'))) return true;
-		if (!is_null($this->getOption('required')))
+		if (!is_null($this->getOption('required'))) {
 			return $this->getOption('required');
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
 	 * Add a validator
 	 *
-	 * @param callback $name
+	 * @param callable $name
 	 */
 	public function addValidator($name) {
 		$validators = $this->getOption('validator');
