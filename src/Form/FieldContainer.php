@@ -3,11 +3,6 @@ namespace Sy\Component\Html\Form;
 
 class FieldContainer extends Container {
 
-	// public function __construct($name = '') {
-	// 	parent::__construct($name);
-	// 	$this->setTemplateFile(__DIR__ . '/templates/FieldContainer.tpl', 'php');
-	// }
-
 	/**
 	 * Add a div container
 	 *
