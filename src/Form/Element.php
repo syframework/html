@@ -7,10 +7,10 @@ class Element extends HtmlElement {
 
 	private $options;
 
-	public function __construct($tagName = '') {
-		parent::__construct($tagName);
+	public function __construct($tagName = '', $content = null, array $attributes = array(), array $options = array()) {
+		parent::__construct($tagName, $content, $attributes);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->setOptions(array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error'));
+		$this->setOptions(empty($options) ? array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error') : $options);
 	}
 
 	/**
