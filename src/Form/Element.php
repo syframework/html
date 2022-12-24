@@ -1,16 +1,33 @@
 <?php
 namespace Sy\Component\Html\Form;
 
-use Sy\Component\Html\Element as HtmlElement;
+class Element extends \Sy\Component\Html\Element {
 
-class Element extends HtmlElement {
-
+	/**
+	 * @var array
+	 */
 	private $options;
 
+	/**
+	 * Form element constructor
+	 *
+	 * @param string $tagName Element tag name
+	 * @param string|\Sy\Component $content Element content
+	 * @param array $attributes Element attributes
+	 * @param array $options Element options
+	 */
 	public function __construct($tagName = '', $content = null, array $attributes = array(), array $options = array()) {
 		parent::__construct($tagName, $content, $attributes);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->setOptions(empty($options) ? array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error') : $options);
+		$options['label-position'] = isset($options['label-position']) ? $options['label-position'] : 'before';
+		$options['error-position'] = isset($options['error-position']) ? $options['error-position'] : 'before';
+		$options['error-class'] = isset($options['error-class']) ? $options['error-class'] : 'error';
+		$this->setOptions($options);
+
+		$this->mount(function() {
+			$this->setVar('ID', $this->getAttribute('id'));
+			$this->setVars(array_filter($this->options, 'is_string'));
+		});
 	}
 
 	/**
@@ -92,7 +109,7 @@ class Element extends HtmlElement {
 	/**
 	 * Return if the element is required or not
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function isRequired() {
 		if (!is_null($this->getAttribute('required'))) return true;
@@ -114,12 +131,6 @@ class Element extends HtmlElement {
 		if (!is_array($validators)) $validators = array($validators);
 		$validators[] = $name;
 		$this->setOption('validator', $validators);
-	}
-
-	public function __toString() {
-		$this->setVar('ID', $this->getAttribute('id'));
-		$this->setVars(array_filter($this->options, 'is_string'));
-		return parent::__toString();
 	}
 
 }
