@@ -50,7 +50,7 @@ class Element extends WebComponent {
 	 * Get the element attribute
 	 *
 	 * @param  string $name Attribute name
-	 * @return string
+	 * @return string|null
 	 */
 	public function getAttribute($name) {
 		$name = strtolower($name);
