@@ -10,9 +10,7 @@ class FieldContainer extends Container {
 	 * @return FieldContainer
 	 */
 	public function addDiv(array $attributes = array()) {
-		$div = $this->addElement(new FieldContainer('div'));
-		$div->setAttributes($attributes);
-		return $div;
+		return $this->addElement(new FieldContainer('div', null, $attributes));
 	}
 
 	/**
@@ -22,9 +20,7 @@ class FieldContainer extends Container {
 	 * @return FieldContainer
 	 */
 	public function addSpan(array $attributes = array()) {
-		$span = $this->addElement(new FieldContainer('span'));
-		$span->setAttributes($attributes);
-		return $span;
+		return $this->addElement(new FieldContainer('span', null, $attributes));
 	}
 
 	/**
@@ -35,8 +31,7 @@ class FieldContainer extends Container {
 	 * @return Fieldset
 	 */
 	public function addFieldset($label = '', array $attributes = array()) {
-		$fieldset = new Fieldset($label, $attributes);
-		return $this->addElement($fieldset);
+		return $this->addElement(new Fieldset($label, $attributes));
 	}
 
 	/**
@@ -47,10 +42,7 @@ class FieldContainer extends Container {
 	 * @return Element
 	 */
 	public function addLabel($label, array $attributes = array()) {
-		$element = new Element('label');
-		$element->addText($label);
-		$element->setAttributes($attributes);
-		return $this->addElement($element);
+		return $this->addElement(new Element('label', $label, $attributes));
 	}
 
 	/**
@@ -61,10 +53,7 @@ class FieldContainer extends Container {
 	 * @return Element
 	 */
 	public function addButton($label, array $attributes = array()) {
-		$element = new Element('button');
-		$element->addText($label);
-		$element->setAttributes($attributes);
-		return $this->addElement($element);
+		return $this->addElement(new Element('button', $label, $attributes));
 	}
 
 	/**

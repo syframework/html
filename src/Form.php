@@ -97,6 +97,33 @@ abstract class Form extends Form\FieldContainer {
 	}
 
 	/**
+	 * Extract the value by walking the array using given array path.
+	 *
+	 * Given an array path, returns the value of the last element.
+	 * Example: $array['a']['b']['c'] = 'val' will return 'val' with path 'a[b][c]'.
+	 *
+	 * @param  array $array Array to walk
+	 * @param  string $path Array notation path of the part to extract
+	 * @return mixed
+	 */
+	public static function getValueByPath(array $array, $path) {
+		if (empty($array)) return null;
+		$path = trim($path);
+		if ($path === '') return null;
+
+		$keys = array_filter(array_map(function($v) {
+			return rtrim($v, ']');
+		}, explode('[', $path)), 'strlen');
+
+		$tmp = &$array;
+
+		foreach ($keys as $key) {
+			$tmp = &$tmp[$key];
+		}
+		return $tmp;
+	}
+
+	/**
 	 * Return an id used for catching form submit action
 	 *
 	 * @return string

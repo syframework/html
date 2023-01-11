@@ -190,7 +190,7 @@ class Element extends WebComponent {
 			}
 			if (!in_array($this->tagName, $this->voidElements)) {
 				$content = $this->getContent();
-				$this->setVar('CONTENT', Component::concat(...$content));
+				$this->setVar('CONTENT', WebComponent::concat(...$content));
 			}
 		});
 		return parent::render();
