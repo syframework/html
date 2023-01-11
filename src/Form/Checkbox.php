@@ -3,12 +3,21 @@ namespace Sy\Component\Html\Form;
 
 class Checkbox extends Input implements FillableElement, ValidableElement {
 
-	public function __construct() {
-		parent::__construct('checkbox');
+	/**
+	 * Input type checkbox element
+	 *
+	 * @param array $attributes Checkbox attributes
+	 * @param array $options Checkbox options
+	 */
+	public function __construct(array $attributes = array(), array $options = array()) {
+		parent::__construct('checkbox', $attributes, $options);
 		$this->setOption('label-position', 'after');
 		$this->setOption('error-position', 'after');
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function fill($value) {
 		if (is_null($value)) return;
 		if (is_array($value)) {
@@ -19,6 +28,9 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 			$this->setAttribute('checked', 'checked');
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function isValid($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') {

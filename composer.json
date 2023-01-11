@@ -27,6 +27,6 @@
 		}
 	},
 	"scripts": {
-		"test": "phpunit tests"
+		"test": "phpunit --coverage-text --whitelist src tests"
 	}
 }

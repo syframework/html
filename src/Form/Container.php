@@ -16,9 +16,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	/**
-	 * Fill all the elements contained
-	 *
-	 * @param array $values
+	 * {@inheritDoc}
 	 */
 	public function fill($values) {
 		foreach ($this->getElements() as $e) {
@@ -34,10 +32,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	/**
-	 * Validate the container
-	 *
-	 * @param array $values
-	 * @return boolean
+	 * {@inheritDoc}
 	 */
 	public function isValid($values) {
 		$res = true;
