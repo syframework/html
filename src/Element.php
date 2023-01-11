@@ -163,7 +163,7 @@ class Element extends WebComponent {
 	 */
 	public function addText($text) {
 		if (empty($text)) return;
-		$this->content[] = trim($text);
+		$this->content[] = $text;
 	}
 
 	/**
