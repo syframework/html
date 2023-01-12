@@ -89,6 +89,18 @@ class ElementTest extends TestCase {
 		$e = new Element('div');
 		$e->addText('hello');
 		$this->assertComponentRenderEqualsText($e, '<div>hello</div>');
+
+		$e = new Element('div');
+		$e->addText('');
+		$this->assertComponentRenderEqualsText($e, '<div></div>');
+
+		$e = new Element('div');
+		$e->addText('0');
+		$this->assertComponentRenderEqualsText($e, '<div>0</div>');
+
+		$e = new Element('div');
+		$e->addText(" \n\n ");
+		$this->assertEquals(strval($e), "<div> \n\n </div>");
 	}
 
 	public function testAddElement() {

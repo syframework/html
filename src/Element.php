@@ -162,7 +162,7 @@ class Element extends WebComponent {
 	 * @param string $text
 	 */
 	public function addText($text) {
-		if (empty($text)) return;
+		if (!strlen($text)) return;
 		$this->content[] = $text;
 	}
 
