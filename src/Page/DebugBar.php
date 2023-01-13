@@ -131,8 +131,8 @@ class DebugBar extends WebComponent {
 				}
 				$rows .= <<<TR
 					<tr style="{$this->resetCss}">
-						<td style="{$this->tdCss} background-color: #DDE4EB; font-weight: bold;">$k</td>
-						<td style="{$this->tdCss} background-color: #EDF3FE">
+						<td style="{$this->tdCss} background-color: #DDE4EB !important; font-weight: bold;">$k</td>
+						<td style="{$this->tdCss} background-color: #EDF3FE !important">
 							$value
 						</td>
 					</tr>
@@ -156,7 +156,7 @@ VARS_DIV;
 		foreach (get_included_files() as $file) {
 			$files .= <<<FILES
 				<tr style="{$this->resetCss}">
-					<td style="{$this->tdCss} background-color: #EDF3FE">$file</td>
+					<td style="{$this->tdCss} background-color: #EDF3FE !important">$file</td>
 				</tr>
 FILES;
 		}
@@ -183,7 +183,7 @@ FILES;
 				$nbError = $nb . ' errors';
 				break;
 		}
-		$this->setVar('NB_ERROR',  $nbError);
+		$this->setVar('NB_ERROR', $nbError);
 
 		$flag = array(
 			'green'  => '<svg style="height: 14px; color: green" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M349.565 98.783C295.978 98.783 251.721 64 184.348 64c-24.955 0-47.309 4.384-68.045 12.013a55.947 55.947 0 0 0 3.586-23.562C118.117 24.015 94.806 1.206 66.338.048 34.345-1.254 8 24.296 8 56c0 19.026 9.497 35.825 24 45.945V488c0 13.255 10.745 24 24 24h16c13.255 0 24-10.745 24-24v-94.4c28.311-12.064 63.582-22.122 114.435-22.122 53.588 0 97.844 34.783 165.217 34.783 48.169 0 86.667-16.294 122.505-40.858C506.84 359.452 512 349.571 512 339.045v-243.1c0-23.393-24.269-38.87-45.485-29.016-34.338 15.948-76.454 31.854-116.95 31.854z"></path></svg>',
@@ -212,16 +212,16 @@ FILES;
 			$message = htmlentities($log->getMessage(), ENT_QUOTES, $this->charset);
 			$logsDiv .= <<<LOGS_DIV
 				<tr class="sy_debug_log_row_{$this->colorNames[$log->getLevel()]}" style="{$this->resetCss}">
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">
 						<div style="display: inline-block">{$flags[$log->getLevel()]}</div>
 						{$log->getLevelName()}
 					</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getType()}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}; text-align: right;">{$log->getLine()}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getClass()}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getFunction()}</td>
-					<td style="{$this->tdCss} background-color: {$this->sColors[$log->getLevel()]}"><pre style="{$this->resetCss}">$message</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$log->getType()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important; text-align: right;">{$log->getLine()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$log->getClass()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$log->getFunction()}</td>
+					<td style="{$this->tdCss} background-color: {$this->sColors[$log->getLevel()]} !important"><pre style="{$this->resetCss}">$message</td>
 				</tr>
 LOGS_DIV;
 		}
@@ -256,7 +256,7 @@ LOGS_DIV;
 				$nbQuery = $nb . ' Queries';
 				break;
 		}
-		$this->setVar('NB_QUERY',  $nbQuery);
+		$this->setVar('NB_QUERY', $nbQuery);
 
 		// Query logs
 		$queryLogs = '';
@@ -266,12 +266,12 @@ LOGS_DIV;
 			$message = htmlentities($log->getMessage(), ENT_QUOTES, $this->charset);
 			$queryLogs .= <<<QUERY
 				<tr style="{$this->resetCss}">
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$n}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}; text-align: right;">{$log->getLine()}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getClass()}</td>
-					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]}">{$log->getFunction()}</td>
-					<td style="{$this->tdCss} background-color: {$this->sColors[$log->getLevel()]}"><pre style="{$this->resetCss}">$message</pre></td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$n}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important"><span style="{$this->resetCss}" title="{$log->getFile()}">$filename</span></td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important; text-align: right;">{$log->getLine()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$log->getClass()}</td>
+					<td style="{$this->tdCss} background-color: {$this->colors[$log->getLevel()]} !important">{$log->getFunction()}</td>
+					<td style="{$this->tdCss} background-color: {$this->sColors[$log->getLevel()]} !important"><pre style="{$this->resetCss}">$message</pre></td>
 				</tr>
 QUERY;
 		}
@@ -295,8 +295,8 @@ QUERY;
 			$t = round($time * 1000, 2);
 			$timeLogs .= <<<TIMES
 			<tr style="{$this->resetCss}">
-				<td style="{$this->tdCss} background-color: #DDE4EB">$title</td>
-				<td style="{$this->tdCss} background-color: #EDF3FE; text-align: right; padding-right: 10px;">$t</td>
+				<td style="{$this->tdCss} background-color: #DDE4EB !important">$title</td>
+				<td style="{$this->tdCss} background-color: #EDF3FE !important; text-align: right; padding-right: 10px;">$t</td>
 			</tr>
 TIMES;
 		}

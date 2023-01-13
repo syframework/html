@@ -43,4 +43,21 @@ class CheckboxTest extends TestCase {
 		$this->assertComponentRenderEqualsText($c, '<input checked="checked" type="checkbox" />');
 	}
 
+	public function testIsValid() {
+		$c = new Checkbox(attributes: ['value' => 'foo']);
+		$this->assertTrue($c->isValid('anything'));
+
+		$c = new Checkbox(attributes: ['value' => 'foo', 'required' => true]);
+		$this->assertFalse($c->isValid('anything'));
+
+		$c = new Checkbox(attributes: ['value' => 'foo', 'required' => true]);
+		$this->assertTrue($c->isValid('foo'));
+
+		$c = new Checkbox(attributes: ['value' => 'foo', 'required' => true]);
+		$this->assertTrue($c->isValid(['foo', 'bar', 'baz']));
+
+		$c = new Checkbox(attributes: ['value' => 'foo', 'required' => true]);
+		$this->assertFalse($c->isValid(['bar', 'baz']));
+	}
+
 }

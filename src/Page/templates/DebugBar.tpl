@@ -88,19 +88,21 @@
 		</div>
 
 		<?php if ($WEB_LOGGER): ?>
-		<div id="sy_debug_log_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto; position: relative;">
-			<div onclick="sy_debug.get('log_filter_div').style.display = 'block';" style="<?php echo $RESET_CSS ?> position: absolute; top: 2px; left: 3px; cursor: pointer;">
-				<svg style="height: 12px; color: white" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M336.174 80c-49.132 0-93.305-32-161.913-32-31.301 0-58.303 6.482-80.721 15.168a48.04 48.04 0 0 0 2.142-20.727C93.067 19.575 74.167 1.594 51.201.104 23.242-1.71 0 20.431 0 48c0 17.764 9.657 33.262 24 41.562V496c0 8.837 7.163 16 16 16h16c8.837 0 16-7.163 16-16v-83.443C109.869 395.28 143.259 384 199.826 384c49.132 0 93.305 32 161.913 32 58.479 0 101.972-22.617 128.548-39.981C503.846 367.161 512 352.051 512 335.855V95.937c0-34.459-35.264-57.768-66.904-44.117C409.193 67.309 371.641 80 336.174 80zM464 336c-21.783 15.412-60.824 32-102.261 32-59.945 0-102.002-32-161.913-32-43.361 0-96.379 9.403-127.826 24V128c21.784-15.412 60.824-32 102.261-32 59.945 0 102.002 32 161.913 32 43.271 0 96.32-17.366 127.826-32v240z"></path></svg>
-			</div>
-			<div id="sy_debug_log_filter_div" style="<?php echo $RESET_CSS ?> display: none; position: absolute; padding: 3px; background-color: #CCC; border-bottom: 1px solid #AAA; border-right: 1px solid #AAA;">
-				<button onclick="sy_debug.get('log_filter_div').style.display = 'none';" title="Close" style="margin-left: 5px; float: right; font-size: 16px; font-weight: bold; color: #777; line-height: 16px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">&times;</button>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'green')" style="display: inline-block; cursor: pointer; float: none; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_NOTICE ?></div>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'orange')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_WARN ?></div>
-				<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'red')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_ERR ?></div>
-			</div>
+		<div id="sy_debug_log_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto">
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="position: sticky; top: 0; <?php echo $TR_HEAD_CSS ?>">
-					<th style="<?php echo $TH_CSS ?> min-width: 90px;">Level</th>
+					<th style="<?php echo $TH_CSS ?> min-width: 90px; position: relative">
+						Level
+						<div onclick="sy_debug.get('log_filter_div').style.display = 'block';" style="<?php echo $RESET_CSS ?> position: absolute; top: 2px; left: 3px; cursor: pointer">
+							<svg style="height: 12px; color: white" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M336.174 80c-49.132 0-93.305-32-161.913-32-31.301 0-58.303 6.482-80.721 15.168a48.04 48.04 0 0 0 2.142-20.727C93.067 19.575 74.167 1.594 51.201.104 23.242-1.71 0 20.431 0 48c0 17.764 9.657 33.262 24 41.562V496c0 8.837 7.163 16 16 16h16c8.837 0 16-7.163 16-16v-83.443C109.869 395.28 143.259 384 199.826 384c49.132 0 93.305 32 161.913 32 58.479 0 101.972-22.617 128.548-39.981C503.846 367.161 512 352.051 512 335.855V95.937c0-34.459-35.264-57.768-66.904-44.117C409.193 67.309 371.641 80 336.174 80zM464 336c-21.783 15.412-60.824 32-102.261 32-59.945 0-102.002-32-161.913-32-43.361 0-96.379 9.403-127.826 24V128c21.784-15.412 60.824-32 102.261-32 59.945 0 102.002 32 161.913 32 43.271 0 96.32-17.366 127.826-32v240z"></path></svg>
+						</div>
+						<div id="sy_debug_log_filter_div" style="<?php echo $RESET_CSS ?> display: none; text-align: left; position: absolute; top: 0px; left: 0px; padding: 3px; background-color: #CCC; border-bottom: 1px solid #AAA; border-right: 1px solid #AAA; white-space: nowrap">
+							<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'green')" style="display: inline-block; cursor: pointer; float: none; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_NOTICE ?></div>
+							<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'orange')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_WARN ?></div>
+							<div class="sy_debug_filter_checked" onclick="sy_debug.log_filter(this, 'red')" style="display: inline-block; cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;"><?php echo $FLAG_ERR ?></div>
+							<button onclick="sy_debug.get('log_filter_div').style.display = 'none';" title="Close" style="margin-left: 5px; font-size: 16px; font-weight: bold; color: #777; line-height: 16px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">&times;</button>
+						</div>
+					</th>
 					<th style="<?php echo $TH_CSS ?>">Type</th>
 					<th style="<?php echo $TH_CSS ?>">File</th>
 					<th style="<?php echo $TH_CSS ?> width: 40px;">Line</th>

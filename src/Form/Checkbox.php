@@ -33,7 +33,11 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 	 */
 	public function isValid($value) {
 		if ($this->isRequired()) {
-			if (!isset($value) or $value === '') {
+			if (is_array($value)) {
+				if (!in_array($this->getAttribute('value'), $value)) {
+					return false;
+				}
+			} elseif ((string)$this->getAttribute('value') !== (string)$value) {
 				return false;
 			}
 		}
