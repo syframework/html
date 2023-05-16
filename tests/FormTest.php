@@ -2,7 +2,6 @@
 namespace Sy\Test;
 
 use Sy\Component\Html\Form;
-use Sy\Component;
 
 class MyForm extends Form {
 
@@ -14,6 +13,29 @@ class MyForm extends Form {
 		echo 'MyForm submit action';
 	}
 
+	protected function getFormActionTrigger() {
+		return 'foo';
+	}
+
+}
+
+class AForm extends Form {
+
+	private $name;
+
+	public function __construct(string $name) {
+		parent::__construct();
+		$this->name = $name;
+	}
+
+	public function init() {
+		$this->addTextInput(['value' => 'foo']);
+	}
+
+	public function submitAction() {
+		echo 'Submit action';
+	}
+
 }
 
 class FormTest extends TestCase {
@@ -22,10 +44,19 @@ class FormTest extends TestCase {
 		$form = new MyForm();
 		$this->assertComponentRenderEqualsText($form, '
 			<form action="" method="post">
-				<input name="sy-form-action-trigger" value="70f98ae4e1caf15d73b4e6e8b7ada178" type="hidden" />
+				<input name="sy-form-action-trigger" value="foo" type="hidden" />
 				<input value="foo" type="text" />
 			</form>
 		');
+	}
+
+	public function testFormId() {
+		$a = new AForm('a');
+		$b = new AForm('b');
+		$c = new AForm('a');
+
+		$this->assertEquals(strval($a), strval($c));
+		$this->assertNotEquals(strval($b), strval($c));
 	}
 
 }
