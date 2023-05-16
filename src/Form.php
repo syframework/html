@@ -35,12 +35,12 @@ abstract class Form extends Form\FieldContainer {
 		parent::__construct();
 		$this->initialized = false;
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
-		$this->formId = $this->getFormActionTrigger();
 		$this->setAttributes($attributes);
 		$this->setOption('error-class', 'error');
 		$this->setOption('success-class', 'success');
 		$this->added(function () {
 			$this->initialize();
+			$this->formId = $this->getFormActionTrigger();
 			if (($this->request('sy-form-action-trigger') === $this->formId) and !self::$isSubmit) {
 				self::$isSubmit = true;
 				$info = $this->getDebugTrace();
@@ -129,7 +129,7 @@ abstract class Form extends Form\FieldContainer {
 	 * @return string
 	 */
 	protected function getFormActionTrigger() {
-		return md5(get_class($this));
+		return md5(print_r($this, true));
 	}
 
 }
