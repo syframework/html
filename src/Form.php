@@ -129,7 +129,11 @@ abstract class Form extends Form\FieldContainer {
 	 * @return string
 	 */
 	protected function getFormActionTrigger() {
-		return md5(print_r($this, true));
+		$class = new \ReflectionClass($this);
+		$props = implode(array_map(function ($property) {
+			return $property->getValue($this);
+		}, $class->getProperties()));
+		return md5($class->getName() . $props);
 	}
 
 }
