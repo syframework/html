@@ -23,9 +23,21 @@ class AForm extends Form {
 
 	private $name;
 
-	public function __construct(string $name) {
+	private $array;
+
+	private $integer;
+
+	private $object;
+
+	private $bool;
+
+	public function __construct(string $name, array $array = [], int $integer = 0, $object = null, $bool = false) {
 		parent::__construct();
-		$this->name = $name;
+		$this->name    = $name;
+		$this->array   = $array;
+		$this->integer = $integer;
+		$this->object  = $object;
+		$this->bool    = $bool;
 	}
 
 	public function init() {
@@ -36,6 +48,26 @@ class AForm extends Form {
 		echo 'Submit action';
 	}
 
+}
+
+class Foo {
+	private $name;
+
+	private $array;
+
+	private $integer;
+
+	private $object;
+
+	private $bool;
+
+	public function __construct(string $name, array $array = [], int $integer = 0, $object = null, $bool = false) {
+		$this->name    = $name;
+		$this->array   = $array;
+		$this->integer = $integer;
+		$this->object  = $object;
+		$this->bool    = $bool;
+	}
 }
 
 class FormTest extends TestCase {
@@ -54,9 +86,11 @@ class FormTest extends TestCase {
 		$a = new AForm('a');
 		$b = new AForm('b');
 		$c = new AForm('a');
+		$d = new AForm('a', [1]);
 
 		$this->assertEquals(strval($a), strval($c));
 		$this->assertNotEquals(strval($b), strval($c));
+		$this->assertNotEquals(strval($a), strval($d));
 	}
 
 }
