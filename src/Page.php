@@ -23,6 +23,11 @@ class Page extends WebComponent {
 	/**
 	 * @var array
 	 */
+	private $base;
+
+	/**
+	 * @var array
+	 */
 	private $meta;
 
 	/**
@@ -54,6 +59,7 @@ class Page extends WebComponent {
 		$this->debug   = false;
 		$this->doctype = 'html5';
 		$this->charset = 'utf-8';
+		$this->base    = array();
 		$this->meta    = array();
 		$this->links   = array();
 		$this->htmlAttributes = array();
@@ -194,6 +200,16 @@ class Page extends WebComponent {
 	}
 
 	/**
+	 * Set base element
+	 *
+	 * @param string $href
+	 * @param string $target
+	 */
+	public function setBase($href = '', $target = '') {
+		$this->base = array_filter(['href' => $href, 'target' => $target]);
+	}
+
+	/**
 	 * Set the document charset
 	 *
 	 * @param string $charset Charset encoding string
@@ -314,6 +330,7 @@ class Page extends WebComponent {
 	private function renderAll() {
 		$this->renderAttributes($this->htmlAttributes, 'HTML_ATTR');
 		$this->renderAttributes($this->bodyAttributes, 'BODY_ATTR');
+		$this->renderBase();
 		$this->renderMetas();
 		$this->renderLinks();
 		$this->renderCssLinks();
@@ -329,6 +346,11 @@ class Page extends WebComponent {
 			$this->setVar('VALUE', $value);
 			$this->setBlock($block);
 		}
+	}
+
+	private function renderBase() {
+		if (empty($this->base)) return;
+		$this->setComponent('BASE', new Element('base', null, $this->base));
 	}
 
 	private function renderMetas() {
@@ -362,7 +384,7 @@ class Page extends WebComponent {
 			foreach ($js as $load => $code) {
 				$this->setVars([
 					'LOAD' => $load,
-					'CODE' => $code
+					'CODE' => $code,
 				]);
 				$this->setBlock('JS_CODE');
 			}
@@ -374,7 +396,7 @@ class Page extends WebComponent {
 			foreach ($js as $load => $code) {
 				$this->setVars([
 					'LOAD' => $load,
-					'CODE' => $code
+					'CODE' => $code,
 				]);
 				$this->setBlock('JS_CODE_BOTTOM');
 			}

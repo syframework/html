@@ -1,6 +1,9 @@
 <!DOCTYPE html<?php if (isset($DOCTYPE)): ?> <?php echo $DOCTYPE?><?php endif ?>>
 <html<?php if (isset($HTML_ATTR)): foreach ($HTML_ATTR as $html): ?> <?php echo $html['NAME'] ?>="<?php echo $html['VALUE'] ?>"<?php endforeach; endif ?>>
 <head>
+<?php if (isset($BASE)): ?>
+<?php echo $BASE ?>
+<?php endif ?>
 <?php if (isset($META)): ?>
 <?php foreach ($META as $meta): ?>
 <?php echo $meta['META_ELEMENT'] ?>
