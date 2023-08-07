@@ -194,4 +194,45 @@ class PageTest extends TestCase {
 		$this->assertFileContentEqualsComponentRender(__DIR__ . "/result/element.html", $page);
 	}
 
+	public function testSetBase() {
+		$page = new Page();
+		$page->setBase(target: '_parent');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<base target="_parent" />
+			<meta charset="utf-8" /></head>
+			<body>
+			</body>
+			</html>
+		');
+
+		$page = new Page();
+		$page->setBase(href: 'https://example.com');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<base href="https://example.com" />
+			<meta charset="utf-8" /></head>
+			<body>
+			</body>
+			</html>
+		');
+
+		$page = new Page();
+		$page->setBase('https://example.com', '_blank');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<base href="https://example.com" target="_blank" />
+			<meta charset="utf-8" /></head>
+			<body>
+			</body>
+			</html>
+		');
+	}
+
 }
