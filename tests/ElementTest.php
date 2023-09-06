@@ -95,6 +95,10 @@ class ElementTest extends TestCase {
 		$this->assertComponentRenderEqualsText($e, '<div></div>');
 
 		$e = new Element('div');
+		$e->addText(null);
+		$this->assertComponentRenderEqualsText($e, '<div></div>');
+
+		$e = new Element('div');
 		$e->addText('0');
 		$this->assertComponentRenderEqualsText($e, '<div>0</div>');
 

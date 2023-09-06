@@ -162,7 +162,7 @@ class Element extends WebComponent {
 	 * @param string $text
 	 */
 	public function addText($text) {
-		if (!strlen($text)) return;
+		if ($text === null or $text === '') return;
 		$this->content[] = $text;
 	}
 
@@ -180,12 +180,12 @@ class Element extends WebComponent {
 		$this->mount(function () {
 			$this->setVars(array(
 				'TAG_NAME' => $this->tagName,
-				'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '</' . $this->tagName
+				'END_TAG'  => in_array($this->tagName, $this->voidElements) ? ' /' : '</' . $this->tagName,
 			));
 			foreach ($this->attributes as $name => $value) {
 				$this->setBlock('BLOCK_ATTRIBUTES', array(
 					'NAME'  => $name,
-					'VALUE' => $value
+					'VALUE' => $value,
 				));
 			}
 			if (!in_array($this->tagName, $this->voidElements)) {
