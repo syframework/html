@@ -289,6 +289,24 @@ class Page extends WebComponent {
 	}
 
 	/**
+	 * Set the head content
+	 *
+	 * @param string|\Sy\Component $content
+	 */
+	public function setHead($content) {
+		$this->setVar('HEAD', $content);
+	}
+
+	/**
+	 * Add a head content
+	 *
+	 * @param string|\Sy\Component $content
+	 */
+	public function addHead($content) {
+		$this->setVar('HEAD', $content, true);
+	}
+
+	/**
 	 * Set the body content
 	 *
 	 * @param string|\Sy\Component $content

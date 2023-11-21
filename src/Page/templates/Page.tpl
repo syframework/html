@@ -49,6 +49,9 @@
 </script>
 <?php endforeach ?>
 <?php endif ?>
+<?php if (isset($HEAD)): ?>
+<?php echo $HEAD ?>
+<?php endif ?>
 </head>
 <body<?php if (isset($BODY_ATTR)): foreach ($BODY_ATTR as $body): ?> <?php echo $body['NAME'] ?>="<?php echo $body['VALUE'] ?>"<?php endforeach; endif ?>>
 <?php echo $BODY ?>
