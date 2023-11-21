@@ -235,4 +235,66 @@ class PageTest extends TestCase {
 		');
 	}
 
+	public function testAddHead() {
+		$page = new Page();
+		$page->addHead('<script>console.log("hello world")</script>');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="utf-8" />
+			<script>console.log("hello world")</script>
+			</head>
+			<body>
+			</body>
+			</html>
+		');
+
+		$page = new Page();
+		$page->addHead('<script>console.log("hello world")</script>');
+		$page->addHead('<script>console.log("foo")</script>');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="utf-8" />
+			<script>console.log("hello world")</script><script>console.log("foo")</script>
+			</head>
+			<body>
+			</body>
+			</html>
+		');
+	}
+
+	public function testSetHead() {
+		$page = new Page();
+		$page->setHead('<script>console.log("foo")</script>');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="utf-8" />
+			<script>console.log("foo")</script>
+			</head>
+			<body>
+			</body>
+			</html>
+		');
+
+		$page = new Page();
+		$page->setHead('<script>console.log("foo")</script>');
+		$page->setHead('<script>console.log("bar")</script>');
+		$this->assertComponentRenderEqualsText($page, '
+			<!DOCTYPE html>
+			<html>
+			<head>
+			<meta charset="utf-8" />
+			<script>console.log("bar")</script>
+			</head>
+			<body>
+			</body>
+			</html>
+		');
+	}
+
 }
