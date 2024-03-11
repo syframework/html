@@ -467,9 +467,10 @@ class Page extends WebComponent {
 						'LINK'        => $link['url'],
 						'INTEGRITY'   => isset($link['integrity']) ? $link['integrity'] : '',
 						'CROSSORIGIN' => isset($link['crossorigin']) ? $link['crossorigin'] : '',
+						'DEFER'       => isset($link['defer']) ? $link['defer'] : '',
 					));
 				} else {
-					$this->setVars(array('LINK' => $link, 'INTEGRITY' => '', 'CROSSORIGIN' => ''));
+					$this->setVars(array('LINK' => $link, 'INTEGRITY' => '', 'CROSSORIGIN' => '', 'DEFER' => ''));
 				}
 				$this->setBlock('CSS_LINKS');
 			}
