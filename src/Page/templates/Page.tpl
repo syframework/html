@@ -22,12 +22,17 @@
 <?php endif ?>
 <?php if (isset($CSS_LINKS)): ?>
 <?php foreach ($CSS_LINKS as $css): ?>
-<link rel="stylesheet" type="text/css"<?php if (!empty($css['MEDIA'])) : ?> media="<?php echo $css['MEDIA'] ?>"<?php endif ?> href="<?php echo $css['LINK'] ?>"<?php if (!empty($css['INTEGRITY'])) : ?> integrity="<?php echo $css['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($css['CROSSORIGIN'])) : ?> crossorigin="<?php echo $css['CROSSORIGIN'] ?>"<?php endif ?> />
+<?php if (empty($css['DEFER'])): ?>
+<link rel="stylesheet" type="text/css"<?php if (!empty($css['MEDIA'])): ?> media="<?php echo $css['MEDIA'] ?>"<?php endif ?> href="<?php echo $css['LINK'] ?>"<?php if (!empty($css['INTEGRITY'])): ?> integrity="<?php echo $css['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($css['CROSSORIGIN'])) : ?> crossorigin="<?php echo $css['CROSSORIGIN'] ?>"<?php endif ?> />
+<?php else: ?>
+<link rel="preload" <?php if (!empty($css['MEDIA'])): ?> media="<?php echo $css['MEDIA'] ?>"<?php endif ?> href="<?php echo $css['LINK'] ?>" as="style"<?php if (!empty($css['INTEGRITY'])): ?> integrity="<?php echo $css['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($css['CROSSORIGIN'])) : ?> crossorigin="<?php echo $css['CROSSORIGIN'] ?>"<?php endif ?> onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" type="text/css"<?php if (!empty($css['MEDIA'])) : ?> media="<?php echo $css['MEDIA'] ?>"<?php endif ?> href="<?php echo $css['LINK'] ?>"<?php if (!empty($css['INTEGRITY'])) : ?> integrity="<?php echo $css['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($css['CROSSORIGIN'])) : ?> crossorigin="<?php echo $css['CROSSORIGIN'] ?>"<?php endif ?> /></noscript>
+<?php endif ?>
 <?php endforeach ?>
 <?php endif ?>
 <?php if (isset($JS_LINKS)): ?>
 <?php foreach ($JS_LINKS as $link): ?>
-<script<?php if (!empty($link['TYPE'])): ?> type="<?php echo $link['TYPE'] ?>"<?php endif ?> src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])) : ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
+<script<?php if (!empty($link['TYPE'])): ?> type="<?php echo $link['TYPE'] ?>"<?php endif ?> src="<?php echo $link['JS_LINK'] ?>"<?php if (!empty($link['INTEGRITY'])): ?> integrity="<?php echo $link['INTEGRITY'] ?>"<?php endif ?><?php if (!empty($link['CROSSORIGIN'])) : ?> crossorigin="<?php echo $link['CROSSORIGIN'] ?>"<?php endif ?><?php if (!empty($link['LOAD'])) : ?> <?php echo $link['LOAD'] ?><?php endif ?>></script>
 <?php endforeach ?>
 <?php endif ?>
 <?php if (!empty($CSS_CODE)): ?>
