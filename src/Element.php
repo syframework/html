@@ -151,6 +151,7 @@ class Element extends WebComponent {
 	 * @return Component
 	 */
 	public function addElement(Component $element) {
+		$element->addTranslators($this->getTranslators());
 		$element->setParent($this);
 		$this->content[] = $element;
 		return $element;
