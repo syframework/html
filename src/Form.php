@@ -52,6 +52,10 @@ abstract class Form extends Form\FieldContainer {
 		});
 		$this->mount(function () {
 			$this->setVar('ACTION_TRIGGER', $this->formId);
+			if (session_status() === PHP_SESSION_NONE) {
+				session_start();
+			}
+			$_SESSION['syform'][$this->formId] = serialize($this);
 			if (is_null($this->getAttribute('action'))) {
 				$this->setAttribute('action', isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '');
 			}
@@ -129,33 +133,7 @@ abstract class Form extends Form\FieldContainer {
 	 * @return string
 	 */
 	protected function getFormActionTrigger() {
-		return md5($this->getObjectValue($this));
-	}
-
-	private function getPropertyValue($property) {
-		$type  = gettype($property);
-		switch ($type) {
-			case 'NULL':
-			case 'unknown type':
-			case 'resource':
-				return $type;
-
-			case 'object':
-				return $this->getObjectValue($property);
-
-			case 'array':
-				return implode(array_map(array($this, 'getPropertyValue'), $property));
-
-			default:
-				return $property;
-		}
-	}
-
-	private function getObjectValue($object) {
-		$class = new \ReflectionClass($object);
-		return $class->getName() . implode(array_map(function (\ReflectionProperty $property) use ($object) {
-			return $this->getPropertyValue($property->getValue($object));
-		}, $class->getProperties()));
+		return md5(serialize($this));
 	}
 
 }
