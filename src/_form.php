@@ -22,5 +22,8 @@ if (!isset($forms[$formId])) return;
 $form = unserialize($forms[$formId]);
 $form->initialize();
 $res = $form->submitAction();
+
+if (empty($res)) return;
+
 echo $res;
 exit;
