@@ -56,10 +56,6 @@ abstract class Form extends Form\FieldContainer {
 		});
 		$this->mount(function () {
 			$this->setVar('ACTION_TRIGGER', $this->formId);
-			if (session_status() === PHP_SESSION_NONE) {
-				session_start();
-			}
-			$_SESSION['syform'][$this->formId] = serialize($this);
 			if (is_null($this->getAttribute('action'))) {
 				$this->setAttribute('action', isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '');
 			}
