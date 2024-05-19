@@ -47,7 +47,11 @@ abstract class Form extends Form\FieldContainer {
 				$info['type'] = 'Form submit';
 				$message = 'Call method ' . get_class($this) . '::submitAction';
 				$this->log($message, $info);
-				$this->submitAction();
+				$res = $this->submitAction();
+				if (!empty($res)) {
+					echo $res;
+					exit;
+				}
 			}
 		});
 		$this->mount(function () {

@@ -19,8 +19,7 @@
 	"autoload": {
 		"psr-4": {
 			"Sy\\Component\\Html\\": "src/"
-		},
-		"files": ["src/_form.php"]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {
