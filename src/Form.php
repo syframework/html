@@ -137,7 +137,33 @@ abstract class Form extends Form\FieldContainer {
 	 * @return string
 	 */
 	protected function getFormActionTrigger() {
-		return md5(serialize($this));
+		return md5($this->getObjectValue($this));
+	}
+
+	private function getPropertyValue($property) {
+		$type  = gettype($property);
+		switch ($type) {
+			case 'NULL':
+			case 'unknown type':
+			case 'resource':
+				return $type;
+
+			case 'object':
+				return $this->getObjectValue($property);
+
+			case 'array':
+				return implode(array_map(array($this, 'getPropertyValue'), $property));
+
+			default:
+				return $property;
+		}
+	}
+
+	private function getObjectValue($object) {
+		$class = new \ReflectionClass($object);
+		return $class->getName() . implode(array_map(function (\ReflectionProperty $property) use ($object) {
+			return $this->getPropertyValue($property->getValue($object));
+		}, $class->getProperties()));
 	}
 
 }
