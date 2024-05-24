@@ -25,6 +25,8 @@ abstract class Form extends Form\FieldContainer {
 
 	/**
 	 * Form submit action must be implemented in this method
+	 *
+	 * @return string|null
 	 */
 	abstract public function submitAction();
 
@@ -48,7 +50,8 @@ abstract class Form extends Form\FieldContainer {
 				$message = 'Call method ' . get_class($this) . '::submitAction';
 				$this->log($message, $info);
 				$res = $this->submitAction();
-				if (!empty($res)) {
+				if (empty($res)) return;
+				if (is_string($res)) {
 					echo $res;
 					exit;
 				}
